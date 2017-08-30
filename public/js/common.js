@@ -1,4 +1,4 @@
-define(['jquery','cookie'], function($) {
+define(['jquery','template','cookie'], function($,template) {
   // NProgress.start();
   // NProgress.done();
 
@@ -31,8 +31,12 @@ define(['jquery','cookie'], function($) {
 
   // 获取登录信息
   var loginInfo = $.cookie('loginInfo');
-  var info = JSON.parse(loginInfo);
-  $('.profile img').attr('src',info.tc_avatar);
-  $('.profile h4').html(info.tc_name);
+  var info = loginInfo?JSON.parse(loginInfo):{};
+
+  var tplstr = '<div class="avatar img-circle"><img src="{{tc_avatar}}"></div><h4>{{tc_name}}</h4>';
+  var html = template.render(tplstr,info);
+  $('.aside .profile').html(html);
+  // $('.profile img').attr('src',info.tc_avatar);
+  // $('.profile h4').html(info.tc_name);
   
 });
