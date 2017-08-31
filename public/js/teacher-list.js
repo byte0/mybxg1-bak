@@ -1,4 +1,6 @@
 define(['jquery','template','util','bootstrap'],function($,template,util){
+  var ret = util.qs('flag');
+  console.log(ret);
   // 设置导航菜单选中
   util.setMenu(location.pathname);
   // 调用后台接口获取列表数据
