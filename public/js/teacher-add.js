@@ -1,4 +1,4 @@
-define(['jquery','template','util'],function($,template,util){
+define(['jquery','template','util','datepicker','language'],function($,template,util){
   // 设置菜单选中
   util.setMenu('/teacher/list');
   // 获取编辑的讲师ID
