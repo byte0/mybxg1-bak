@@ -1,4 +1,4 @@
-define(['jquery','template','util','bootstrap'],function($,template,util){
+define(['jquery','template','util','bootstrap','state'],function($,template,util){
   var ret = util.qs('flag');
   console.log(ret);
   // 设置导航菜单选中
