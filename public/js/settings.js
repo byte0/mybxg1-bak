@@ -1,4 +1,4 @@
-define(['jquery','template','util','uploadify'],function($,template,util){
+define(['jquery','template','util','uploadify','datepicker','language','region'],function($,template,util){
   // 设置导航菜单选中
   util.setMenu('/main/index');
   // 调用后台接口填充表单
@@ -24,6 +24,10 @@ define(['jquery','template','util','uploadify'],function($,template,util){
           // 重置头像的图片地址
           $('.preview img').attr('src',data.result.path);
         }
+      });
+      // 处理省市县三级联动
+      $('#pcd').region({
+        url : '/public/assets/jquery-region/region.json'
       });
     }
   });
