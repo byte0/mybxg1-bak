@@ -9,7 +9,7 @@ define(['jquery','template','util'],function($,template,util){
   $.ajax({
     type : 'get',
     url : '/api/course/basic',
-    data : {cs_id : csId},
+    data : {cs_id : csId},                
     dataType : 'json',
     success : function(data){
       // 解析数据，渲染页面
@@ -18,9 +18,24 @@ define(['jquery','template','util'],function($,template,util){
       }else{
         data.result.operate = '课程添加';
       }
-      console.log(data);
       var html = template('basicTpl',data.result);
       $('#basicInfo').html(html);
+      // 处理二级分类的联动
+      $('#firstType').change(function(){
+        // 获取当前的一级分类的ID
+        var fId = $(this).val();
+        $.ajax({
+          type : 'get',
+          url : '/api/category/child',
+          data : {cg_id : fId},
+          dataType : 'json',
+          success : function(data){
+            var tpl = '<option value="">请选择二级分类...</option>{{each list}}<option value="{{$value.cg_id}}">{{$value.cg_name}}</option>{{/each}}';
+            var html = template.render(tpl,{list:data.result});
+            $('#secondType').html(html);
+          }
+        });
+      });
     }
   });
 });
