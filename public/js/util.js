@@ -2,7 +2,7 @@ define(['jquery'],function($){
   // 工具函数
   return {
     setMenu : function(path){// 设置导航菜单选中
-      $('.navs a[href="'+path+'"]').addClass('active');
+      $('.navs a[href="'+path+'"]').addClass('active').closest('ul').show();
     },
     qs : function(key){// 获取指定的URL参数值
       // uname=lisi&flag=123
