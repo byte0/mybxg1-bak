@@ -1,4 +1,4 @@
-define(['jquery','template','util'],function($,template,util){
+define(['jquery','template','util','ckeditor','validate','form'],function($,template,util,CKEDITOR){
   // 设置导航菜单选中
   util.setMenu('/course/add');
   // 获取课程ID
@@ -36,6 +36,30 @@ define(['jquery','template','util'],function($,template,util){
           }
         });
       });
+      // 处理富文本
+      CKEDITOR.replace('ckeditor');
+      // 处理表单提交
+      $('#basicForm').validate({
+        sendForm : false,
+        valid : function(){
+          // 处理富文本提交
+          for(var instance in CKEDITOR.instances){
+            CKEDITOR.instances[instance].updateElement();
+          }
+          // 提交表单
+          $(this).ajaxSubmit({
+            type : 'post',
+            url : '/api/course/update/basic',
+            data : {cs_id : csId},
+            dataType : 'json',
+            success : function(data){
+              if(data.code == 200){
+                location.href = '/course/picture?cs_id=' + data.result.cs_id;
+              }
+            }
+          });
+        }
+      });
     }
-  });
+  }); 
 });
